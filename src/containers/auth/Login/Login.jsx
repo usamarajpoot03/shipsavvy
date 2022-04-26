@@ -65,8 +65,8 @@ function Login() {
       userLogin(values)
         .then((res) => {
           setIsLoading(false);
-          if (res.data?.status === true) {
-            setUserToLocalStorage(res.data.data);
+          if (res.data?.Result === true) {
+            setUserToLocalStorage(res.data.Response);
             window.location.replace("/home");
           }
         })

@@ -15,17 +15,24 @@ import UserContext from "../../components/auth/UserContext/UserContext";
 
 const sideBarMenu = [
   {
+    id: -1,
+    title: "Profile",
+    redirect: "/profile",
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
+    icon: <DashboardIcon />,
+  },
+  {
     id: 0,
     title: "Dashboard",
     redirect: "/home",
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
     icon: <DashboardIcon />,
   },
   {
     id: 1,
     title: "Patients",
     redirect: "/patients",
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
     icon: <PeopleIcon />,
   },
   {
@@ -46,7 +53,7 @@ const sideBarMenu = [
     id: 4,
     title: "Donations",
     redirect: "/donations",
-    roles: [ROLES.ADMIN],
+    roles: [ROLES.ADMIN, ROLES.USER],
     icon: <AttachMoneyRoundedIcon />,
   },
 ];
@@ -56,7 +63,7 @@ export default function Sidebar() {
   return (
     <List>
       {sideBarMenu.map((entry) => {
-        if (!entry.roles.includes(user["Role"].roleName)) return null;
+        if (!entry.roles.includes(user["Role"])) return null;
         return (
           <ListItem button component={Link} to={entry.redirect}>
             <ListItemIcon>{entry.icon}</ListItemIcon>

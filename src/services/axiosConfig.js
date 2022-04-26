@@ -14,11 +14,11 @@ export const AuthAxios = axios.create({
 
 AuthAxios.defaults.headers["content-type"] = "application/json";
 AuthAxios.defaults.headers["accept"] = "application/json";
-AuthAxios.defaults.headers["x-access-token"] = `${getUserToken()}`;
+AuthAxios.defaults.headers["Authorization"] = `Bearer ${getUserToken()}`;
 
 AuthAxios.interceptors.request.use((req) => {
   // if user is logged in from some other tab with some other account then token will be different and we reload to update token in current tab as well
-  if (req.headers["x-access-token"] !== `${getUserToken()}`) {
+  if (req.headers["Authorization"] !== `Bearer ${getUserToken()}`) {
     window.location.replace("/home");
   } else {
     return req;

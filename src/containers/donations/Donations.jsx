@@ -54,31 +54,26 @@ class Donations extends Component {
     if (donations)
       getAllDonation()
         .then((res) => {
-          this.setState({
-            donations: res.data.data,
-          });
+          console.log('xx', res)
+          // this.setState({
+          //   donations: res.data.data,
+          // });
         })
         .catch((err) => {
           this.showAlert("Something went wrong", "error");
         });
-    if (doners)
-      getAllDoners()
-        .then((res) => {
-          this.setState({
-            doners: res.data.data,
-          });
-        })
-        .catch((err) => {
-          this.showAlert("Something went wrong", "error");
-        });
+    // if (doners)
+    //   getAllDoners()
+    //     .then((res) => {
+    //       this.setState({
+    //         doners: res.data.data,
+    //       });
+    //     })
+    //     .catch((err) => {
+    //       this.showAlert("Something went wrong", "error");
+    //     });
   };
   componentDidMount() {
-    console.log(
-      "xx",
-      moment("2021-08-20T15:55:45.991Z", "YYYY-MM-DD hh:mm:ss").format(
-        "DD-MM-YYYY hh:mm:ss A"
-      )
-    );
     this.loadResourses(true, true);
   }
 
@@ -244,7 +239,7 @@ class Donations extends Component {
                     },
                     {
                       label: "No",
-                      onClick: () => {},
+                      onClick: () => { },
                     },
                   ],
                 });
@@ -319,7 +314,7 @@ class Donations extends Component {
                     },
                     {
                       label: "No",
-                      onClick: () => {},
+                      onClick: () => { },
                     },
                   ],
                 });
@@ -368,9 +363,9 @@ class Donations extends Component {
               <Snackbar
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
                 open={true}
-                onClose={() => {}}
+                onClose={() => { }}
               >
-                <Alert onClose={() => {}} severity={this.state.alertType}>
+                <Alert onClose={() => { }} severity={this.state.alertType}>
                   {this.state.message}
                 </Alert>
               </Snackbar>

@@ -1,7 +1,7 @@
 import Axios, { AuthAxios } from "./axiosConfig";
 
 export function getAllDonation() {
-  return AuthAxios.get("/donation");
+  return AuthAxios.get("/customer/me");
 }
 
 export function getAllDoners() {

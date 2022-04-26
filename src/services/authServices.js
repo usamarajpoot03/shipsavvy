@@ -10,8 +10,8 @@ export function userLogin({ username, password }) {
   });
 }
 
-export function setUserToLocalStorage({ token, ...user }) {
-  localStorage.setItem("token", token);
+export function setUserToLocalStorage({ AccessToken, ...user }) {
+  localStorage.setItem("token", AccessToken);
   localStorage.setItem("userData", JSON.stringify(user));
 }
 

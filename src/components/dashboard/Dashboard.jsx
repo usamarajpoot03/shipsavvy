@@ -131,7 +131,7 @@ export default function Dashboard({ children, ...rest }) {
           </Typography>
           <Chip
             icon={<FaceIcon />}
-            label={user["Role"].roleName.toUpperCase()}
+            label={user["Role"]}
           ></Chip>
 
           <IconButton color='inherit'>
