@@ -127,7 +127,7 @@ export default function Dashboard({ children, ...rest }) {
             noWrap
             className={classes.title}
           >
-            MDMS
+            ShipSavvy
           </Typography>
           <Chip
             icon={<FaceIcon />}

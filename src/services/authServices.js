@@ -2,10 +2,10 @@ import Axios, { AuthAxios } from "./axiosConfig";
 
 export function userLogin({ username, password }) {
   const rqstBody = {
-    username: username,
-    password: password,
+    Username: username,
+    Password: password,
   };
-  return Axios.post("/auth/login", rqstBody, {
+  return Axios.post("/identity/registration/signIn", rqstBody, {
     headers: { "Content-Type": "application/json" },
   });
 }
