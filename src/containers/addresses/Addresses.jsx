@@ -14,17 +14,9 @@ import AddressDetailsModal from "../../components/addresses/AddressDetailsModal"
 import AddCustomerAddressModal from "../../components/addresses/AddCustomerAddressModal";
 import moment from "moment";
 import {
-  getAllDonation,
-  getAllDoners,
-  createNewDoner,
-  addNewDonation,
-  deleteDonation,
-  deleteDoner,
-  updateDoner,
-  updateDonation,
   getAddressDetails,
   getAllAddress,
-} from "../../services/donationServices";
+} from "../../services/addressServices";
 import CustomDataGrid from "../../components/addresses/CustomDataGrid";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -332,7 +324,7 @@ class Donations extends Component {
                 addressDetails: null,
               })
             }
-            handleSubmit={this.handleSaveDoner}
+            // handleSubmit={this.handleSaveDoner}
           />
         )}
         <Dashboard>

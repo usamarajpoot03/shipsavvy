@@ -4,7 +4,6 @@ import ProtectedRoute, { AuthRoute } from "../ProtectedRoute/ProtectedRoute";
 import Spinner from "../../components/shared/Spinner/Spinner";
 import SignIn from "../../containers/auth/Login/Login";
 const Login = lazy(() => import("../../containers/auth/Login/Login"));
-const Projects = lazy(() => import("../../containers/Projects/Projects"));
 const Homepage = lazy(() => import("../../containers/Homepage/Homepage"));
 const Addresses = lazy(() => import("../../containers/addresses/Addresses"));
 const Profile = lazy(() => import("../../containers/Profile/Profile"));
@@ -23,23 +22,22 @@ const AppRoutes = ({ user }) => {
   return (
     <Suspense fallback={<Spinner isCenter={true} />}>
       <Switch>
-        <AuthRoute path='/login' exact component={Login} user={user} />
+        <AuthRoute path="/login" exact component={Login} user={user} />
 
-        <ProtectedRoute path='/profile' component={Profile} user={user} />
-        <ProtectedRoute path='/projects' component={Projects} user={user} />
-        <ProtectedRoute path='/home' component={Homepage} user={user} />
+        <ProtectedRoute path="/profile" component={Profile} user={user} />
+        <ProtectedRoute path="/home" component={Homepage} user={user} />
         <ProtectedRoute
-          path='/addresses'
+          path="/addresses"
           exact
           component={Addresses}
           user={user}
         />
 
-        <Route path='/privacy-policy' exact component={PrivacyPolicy} />
-        <Route path='/terms-of-service' exact component={TermsOfService} />
-        <Route path='/not-found' component={NotFoundPage} />
-        <Redirect from='/' to='/login' exact />
-        <Redirect to='/not-found' />
+        <Route path="/privacy-policy" exact component={PrivacyPolicy} />
+        <Route path="/terms-of-service" exact component={TermsOfService} />
+        <Route path="/not-found" component={NotFoundPage} />
+        <Redirect from="/" to="/login" exact />
+        <Redirect to="/not-found" />
       </Switch>
     </Suspense>
   );
