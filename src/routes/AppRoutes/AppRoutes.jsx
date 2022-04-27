@@ -10,12 +10,6 @@ const Profile = lazy(() => import("../../containers/Profile/Profile"));
 const NotFoundPage = lazy(() =>
   import("../../containers/NotFoundPage/NotFoundPage")
 );
-// const PrivacyPolicy = lazy(() =>
-//   import("../../components/static/PrivacyPolicy/PrivacyPolicy")
-// );
-// const TermsOfService = lazy(() =>
-//   import("../../components/static/TermsOfService/TermsOfService")
-// );
 
 const AppRoutes = ({ user }) => {
   return (

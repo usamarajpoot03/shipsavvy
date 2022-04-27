@@ -23,6 +23,7 @@ import {
   userLogin,
   setUserToLocalStorage,
 } from "../../../services/authServices";
+import { getErrorMessage } from "utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const validationSchema = Yup.object({
-  username: Yup.string("Enter your username").required("Username is required"),
-  password: Yup.string("Enter your password")
+  username: Yup.string().required("Username is required"),
+  password: Yup.string()
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
 });
@@ -61,20 +62,19 @@ function Login() {
     onSubmit: (values) => {
       setIsLoading(true);
       setServerError("");
-
       userLogin(values)
         .then((res) => {
           setIsLoading(false);
           if (res.data?.Result === true) {
             setUserToLocalStorage(res.data.Response);
             window.location.replace("/profile");
+          } else {
+            let errorMessage = getErrorMessage(res.data);
+            setServerError(errorMessage);
           }
         })
         .catch((err) => {
-          let errorMessage = err.message;
-          if (err.response && err.response.data && err.response.data.message)
-            errorMessage = err.response.data.message;
-          setServerError(errorMessage);
+          setServerError(getErrorMessage(null));
           setIsLoading(false);
         });
     },
@@ -119,10 +119,6 @@ function Login() {
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
           {serverError && <Alert severity="error">{serverError}</Alert>}
 
