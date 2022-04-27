@@ -67,7 +67,7 @@ function Login() {
           setIsLoading(false);
           if (res.data?.Result === true) {
             setUserToLocalStorage(res.data.Response);
-            window.location.replace("/home");
+            window.location.replace("/profile");
           }
         })
         .catch((err) => {
