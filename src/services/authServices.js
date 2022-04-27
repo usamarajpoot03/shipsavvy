@@ -1,4 +1,4 @@
-import Axios, { AuthAxios } from "./axiosConfig";
+import Axios from "./axiosConfig";
 
 export function userLogin({ username, password }) {
   const rqstBody = {

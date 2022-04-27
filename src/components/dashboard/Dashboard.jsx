@@ -129,13 +129,9 @@ export default function Dashboard({ children, ...rest }) {
           >
             ShipSavvy
           </Typography>
-          <Chip
-            icon={<FaceIcon />}
-            label={user["Role"]}
-          ></Chip>
 
           <IconButton color='inherit'>
-            <Badge badgeContent={4} color='secondary'>
+            <Badge badgeContent={2} color='secondary'>
               <NotificationsIcon />
             </Badge>
           </IconButton>
