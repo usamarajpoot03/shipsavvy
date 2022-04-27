@@ -15,45 +15,17 @@ import UserContext from "../../components/auth/UserContext/UserContext";
 
 const sideBarMenu = [
   {
-    id: -1,
+    id: 0,
     title: "Profile",
     redirect: "/profile",
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
-    icon: <DashboardIcon />,
-  },
-  {
-    id: 0,
-    title: "Dashboard",
-    redirect: "/home",
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
+    roles: [ROLES.USER],
     icon: <DashboardIcon />,
   },
   {
     id: 1,
-    title: "Patients",
-    redirect: "/patients",
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.PHARMACIST, ROLES.USER],
-    icon: <PeopleIcon />,
-  },
-  {
-    id: 2,
-    title: "Generate Token",
-    redirect: "/generateToken",
-    roles: [ROLES.ADMIN, ROLES.CASHIER],
-    icon: <BarChartIcon />,
-  },
-  {
-    id: 3,
-    title: "Medicines",
-    redirect: "/medicines",
-    roles: [ROLES.ADMIN, ROLES.PHARMACIST],
-    icon: <LayersIcon />,
-  },
-  {
-    id: 4,
     title: "Addresses",
     redirect: "/addresses",
-    roles: [ROLES.ADMIN, ROLES.USER],
+    roles: [ROLES.USER],
     icon: <AttachMoneyRoundedIcon />,
   },
 ];
