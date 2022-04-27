@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AppRoutes from "./routes/AppRoutes/AppRoutes";
-import UserContextPovider from "./components/auth/UserContext/UserContextProvider";
+import AppRoutes from "./routes/appRoutes/AppRoutes";
+import UserContextPovider from "./components/auth/userContext/UserContextProvider";
 import { getLoggedInUser } from "./services/authServices";
 import { CssBaseline } from "@material-ui/core";
 class App extends Component {

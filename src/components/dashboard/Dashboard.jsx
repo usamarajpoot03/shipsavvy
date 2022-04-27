@@ -14,7 +14,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SideBar from "./Sidebar";
 import { userLogout } from "../../services/authServices";
-import UserContext from "../../components/auth/UserContext/UserContext";
+import UserContext from "../auth/userContext/UserContext";
 
 import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
