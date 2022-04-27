@@ -84,22 +84,22 @@ function Login() {
   const [serverError, setServerError] = useState("");
 
   return (
-    <Container component='main' maxWidth='xs'>
+    <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component='h1' variant='h5'>
+        <Typography component="h1" variant="h5">
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
-            variant='outlined'
-            margin='normal'
-            id='username'
-            label='Username'
-            name='username'
+            variant="outlined"
+            margin="normal"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
             value={formik.values.username}
             error={formik.touched.username && Boolean(formik.errors.username)}
@@ -108,37 +108,37 @@ function Login() {
           />
           <TextField
             fullWidth
-            variant='outlined'
-            margin='normal'
-            name='password'
-            label='Password'
-            type='password'
-            id='password'
-            autoComplete='current-password'
+            variant="outlined"
+            margin="normal"
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
           <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
           />
-          {serverError && <Alert severity='error'>{serverError}</Alert>}
+          {serverError && <Alert severity="error">{serverError}</Alert>}
 
           <Button
             disabled={isLoading ? true : false}
-            type='submit'
+            type="submit"
             fullWidth
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             className={classes.submit}
           >
             {isLoading ? <CircularProgress size={20} /> : "SIGN IN"}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href='#' variant='body2'>
+              <Link href="#" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

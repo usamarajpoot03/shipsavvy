@@ -6,7 +6,7 @@ import SignIn from "../../containers/auth/Login/Login";
 const Login = lazy(() => import("../../containers/auth/Login/Login"));
 const Projects = lazy(() => import("../../containers/Projects/Projects"));
 const Homepage = lazy(() => import("../../containers/Homepage/Homepage"));
-const Donations = lazy(() => import("../../containers/donations/Donations"));
+const Addresses = lazy(() => import("../../containers/addresses/Addresses"));
 const Profile = lazy(() => import("../../containers/Profile/Profile"));
 
 const NotFoundPage = lazy(() =>
@@ -29,9 +29,9 @@ const AppRoutes = ({ user }) => {
         <ProtectedRoute path='/projects' component={Projects} user={user} />
         <ProtectedRoute path='/home' component={Homepage} user={user} />
         <ProtectedRoute
-          path='/donations'
+          path='/addresses'
           exact
-          component={Donations}
+          component={Addresses}
           user={user}
         />
 

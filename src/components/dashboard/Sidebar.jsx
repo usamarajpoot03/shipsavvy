@@ -51,8 +51,8 @@ const sideBarMenu = [
   },
   {
     id: 4,
-    title: "Donations",
-    redirect: "/donations",
+    title: "Addresses",
+    redirect: "/addresses",
     roles: [ROLES.ADMIN, ROLES.USER],
     icon: <AttachMoneyRoundedIcon />,
   },
