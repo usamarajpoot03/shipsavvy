@@ -95,7 +95,7 @@ export default function Dashboard({ children, ...rest }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    userLogout("/login");
+    userLogout("/login", true);
   };
 
   return (

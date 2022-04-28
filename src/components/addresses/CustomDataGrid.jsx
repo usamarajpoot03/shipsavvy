@@ -5,7 +5,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 const useStyles = makeStyles((theme) => ({
   root: {},
-  grid: { height: "350px" },
+  grid: { height: "450px" },
 }));
 
 export default (props) => {
@@ -25,6 +25,7 @@ export default (props) => {
           rows={data}
           columns={columns}
           loading={isLoading}
+          pageSize={25}
         />
       </Grid>
     </Grid>

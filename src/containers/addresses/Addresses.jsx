@@ -160,13 +160,16 @@ class Addresses extends Component {
   };
 
   handleAddressDetails = async (customerAddress) => {
-    this.setState({ isAddressDetailsLoading: true,openAddressDetailsModal: true });
+    this.setState({
+      isAddressDetailsLoading: true,
+      openAddressDetailsModal: true,
+    });
 
     getAddressDetails(customerAddress.AddressId)
       .then((addressDetails) => {
         this.setState({
           addressDetails: addressDetails.data.Response[0],
-          isAddressDetailsLoading: false
+          isAddressDetailsLoading: false,
         });
       })
       .catch((err) => {
@@ -218,6 +221,8 @@ class Addresses extends Component {
         field: "action",
         headerName: "Action",
         width: 150,
+        sortable: false,
+        filterable: false,
         renderCell: (cellData) => (
           <Box marginLeft={3}>
             <IconButton

@@ -1,4 +1,4 @@
-import Axios from "./axiosConfig";
+import Axios, { AuthAxios } from "./axiosConfig";
 
 export function userLogin({ username, password }) {
   const rqstBody = {
@@ -10,6 +10,9 @@ export function userLogin({ username, password }) {
   });
 }
 
+export function userLogoutService() {
+  return AuthAxios.post("/identity/registration/signOut", {});
+}
 
 export function setUserToLocalStorage({ AccessToken, ...user }) {
   localStorage.setItem("token", AccessToken);
@@ -36,7 +39,12 @@ export function clearUserStorage() {
   localStorage.removeItem("token");
   localStorage.removeItem("userData");
 }
-export function userLogout(redirectLocation = "/login") {
+export async function userLogout(redirectLocation = "/login", serviceCall) {
+  if (serviceCall) {
+    try {
+      await userLogoutService();
+    } catch (err) {}
+  }
   clearUserStorage();
   window.location.replace(redirectLocation);
 }
