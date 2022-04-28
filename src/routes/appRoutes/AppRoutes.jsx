@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import ProtectedRoute, { AuthRoute } from "../protectedRoute/ProtectedRoute";
-import Spinner from "../../components/shared/spinner/Spinner";
+import { CircularProgress, Grid } from "@material-ui/core";
 const Login = lazy(() => import("../../containers/auth/login/Login"));
 const Addresses = lazy(() => import("../../containers/addresses/Addresses"));
 const Profile = lazy(() => import("../../containers/profile/Profile"));
@@ -12,7 +12,13 @@ const NotFoundPage = lazy(() =>
 
 const AppRoutes = ({ user }) => {
   return (
-    <Suspense fallback={<Spinner isCenter={true} />}>
+    <Suspense
+      fallback={
+        <Grid container justifyContent="center">
+          <CircularProgress size={50} />
+        </Grid>
+      }
+    >
       <Switch>
         <AuthRoute path="/login" exact component={Login} user={user} />
 
