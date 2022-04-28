@@ -66,10 +66,12 @@ class Addresses extends Component {
   };
 
   loadAllAddressResources = async () => {
-    this.setState({ isAllAddressLoading: true });
+    this.setState({
+      isAllAddressLoading: true,
+      openCustomerAddressModal: true,
+    });
     const allAddresses = await getAllAddress();
     this.setState({
-      openCustomerAddressModal: true,
       allAddresses: allAddresses.data.Response,
       isAllAddressLoading: false,
     });
@@ -124,6 +126,7 @@ class Addresses extends Component {
   // };
 
   handleAddCustomerAddress = async (newAddressDetails) => {
+    this.setState({ isAllAddressLoading: true });
     const requestBody = {
       CustomerId: this.state.customer.Id,
       AddressId: newAddressDetails.selectedAddress.Id,
@@ -131,7 +134,11 @@ class Addresses extends Component {
     };
     addCustomerAddress(requestBody)
       .then((res) => {
-        this.setState({ openCustomerAddressModal: false, allAddresses: [] });
+        this.setState({
+          openCustomerAddressModal: false,
+          allAddresses: [],
+          isAllAddressLoading: false,
+        });
         this.loadCustomerAddresses(this.state.customer.Id);
         this.showAlert("Address added successfully", "success");
       })
@@ -312,6 +319,7 @@ class Addresses extends Component {
           <AddCustomerAddressModal
             open={this.state.openCustomerAddressModal}
             allAddresses={this.state.allAddresses}
+            isLoading={this.state.isAllAddressLoading}
             handleClose={() =>
               this.setState({
                 openCustomerAddressModal: false,
