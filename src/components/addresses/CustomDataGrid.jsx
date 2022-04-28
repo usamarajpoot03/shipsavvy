@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Grid, makeStyles, Box, Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
@@ -9,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default (props) => {
   const classes = useStyles();
-  const { data, columns, title } = props;
+  const { data, columns, title, isLoading } = props;
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
@@ -23,6 +24,7 @@ export default (props) => {
           rowHeight={40}
           rows={data}
           columns={columns}
+          loading={isLoading}
         />
       </Grid>
     </Grid>

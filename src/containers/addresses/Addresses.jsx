@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from "react";
 import {
   Container,
@@ -6,6 +7,7 @@ import {
   Box,
   IconButton,
   Snackbar,
+  CircularProgress,
 } from "@material-ui/core";
 import Dashboard from "../../components/dashboard";
 import Header from "../../components/addresses/Header";
@@ -42,11 +44,14 @@ const useStyles = (theme) => ({
 class Addresses extends Component {
   state = {
     customer: null,
+    isCustomerLoading: true,
     customerAddresses: [],
+    isCustomerAddressLoading: true,
     openCustomerAddressModal: false,
     openAddressDetailsModal: false,
     addressDetails: null,
     allAddresses: [],
+    isAllAddressLoading: false,
     message: "",
     alertType: "",
   };
@@ -55,22 +60,30 @@ class Addresses extends Component {
     const userCustomerRes = await getUserCustomer();
     this.setState({
       customer: userCustomerRes.data.Response,
+      isCustomerLoading: false,
     });
-    const customerId = userCustomerRes.data.Response.Id;
+    this.loadCustomerAddresses(userCustomerRes.data.Response.Id);
+  };
+
+  loadAllAddressResources = async () => {
+    this.setState({ isAllAddressLoading: true });
+    const allAddresses = await getAllAddress();
+    this.setState({
+      openCustomerAddressModal: true,
+      allAddresses: allAddresses.data.Response,
+      isAllAddressLoading: false,
+    });
+  };
+
+  loadCustomerAddresses = async (customerId) => {
+    this.setState({ isCustomerAddressLoading: true });
     const customerAddresses = await getCustomerAddresses(customerId);
     this.setState({
       customerAddresses: customerAddresses.data.Response.map((data) => ({
         ...data,
         id: data.Id,
       })),
-    });
-  };
-
-  loadCustomerAddressResources = async () => {
-    const allAddresses = await getAllAddress();
-    this.setState({
-      openCustomerAddressModal: true,
-      allAddresses: allAddresses.data.Response,
+      isCustomerAddressLoading: false,
     });
   };
 
@@ -111,16 +124,20 @@ class Addresses extends Component {
   // };
 
   handleAddCustomerAddress = async (newAddressDetails) => {
-    console.log("xx", "newAddressDetails", newAddressDetails);
     const requestBody = {
       CustomerId: this.state.customer.Id,
       AddressId: newAddressDetails.selectedAddress.Id,
       Address: newAddressDetails.title,
     };
-    await addCustomerAddress(requestBody);
-    this.setState({ openCustomerAddressModal: false, allAddresses: [] });
-    this.loadResourses();
-    this.showAlert("Address added successfully", "success");
+    addCustomerAddress(requestBody)
+      .then((res) => {
+        this.setState({ openCustomerAddressModal: false, allAddresses: [] });
+        this.loadCustomerAddresses(this.state.customer.Id);
+        this.showAlert("Address added successfully", "success");
+      })
+      .catch((err) => {
+        this.showAlert("Something went wrong", "error");
+      });
 
     // if (this.state.editDonation)
     //   updateDonation(this.state.editDonation.id, donationData)
@@ -145,16 +162,14 @@ class Addresses extends Component {
   };
 
   handleDeleteCustomerAddress = async (customerAddress) => {
-    console.log("xx", customerAddress);
-    await deleteCustomerAddress(customerAddress.CustomerId, customerAddress.Id);
-    this.showAlert("Customer address deleted successfully", "success");
-    this.loadResourses();
-
-    //   .catch((err) => {
-    //     if (err.response.data && err.response.data.errors.length)
-    //       this.showAlert(err.response.data.errors[0], "error");
-    //     else this.showAlert("Something went wrong", "error");
-    //   });
+    deleteCustomerAddress(this.state.customer.Id, customerAddress.Id)
+      .then((res) => {
+        this.showAlert("Customer address deleted successfully", "success");
+        this.loadCustomerAddresses(this.state.customer.Id);
+      })
+      .catch((err) => {
+        this.showAlert("Something went wrong", "error");
+      });
   };
 
   // handleDeleteDonation = (donationId) => {
@@ -184,24 +199,15 @@ class Addresses extends Component {
   // };
 
   render() {
-    // console.log("xx", this.state.customerAddresses);
     const { classes } = this.props;
-
     const headerButtons = [
       <Button
         variant="outlined"
         color="primary"
-        onClick={() => this.loadCustomerAddressResources()}
+        onClick={() => this.loadAllAddressResources()}
       >
         Add Customer Address
       </Button>,
-      // <Button
-      //   variant="outlined"
-      //   color="primary"
-      //   onClick={() => this.setState({ openAddressDetailsModal: true })}
-      // >
-      //   Add Donation
-      // </Button>,
     ];
 
     const customerAddressesCols = [
@@ -209,13 +215,13 @@ class Addresses extends Component {
         field: "Address",
         headerName: "Title",
         type: "string",
-        width: 200,
+        width: 700,
       },
       {
         field: "IsDefault",
         headerName: "Is Default",
         type: "string",
-        width: 200,
+        width: 150,
       },
       {
         field: "CreationTime",
@@ -341,21 +347,24 @@ class Addresses extends Component {
               </Snackbar>
             )}
 
-            <Grid container>
+            <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12}>
-                <Header
-                  title="Manage Customer Addresses"
-                  buttons={headerButtons}
-                />
+                <Header title="Customer Details" buttons={headerButtons} />
               </Grid>
-              <Grid item xs={12}>
-                <CustomerDetails customer={this.state.customer} />
-              </Grid>
+              {this.state.isCustomerLoading ? (
+                <CircularProgress size={50} />
+              ) : (
+                <Grid item xs={12}>
+                  <CustomerDetails customer={this.state.customer} />
+                </Grid>
+              )}
+
               <Grid item xs={12}>
                 <CustomDataGrid
-                  title={"Customer Addresses"}
+                  title={"Addresses"}
                   data={this.state.customerAddresses}
                   columns={customerAddressesCols}
+                  isLoading={this.state.isCustomerAddressLoading}
                 />
               </Grid>
             </Grid>

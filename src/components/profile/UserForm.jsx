@@ -64,7 +64,6 @@ export default ({ user, isLoading, ...props }) => {
             id="LastName"
             label="LastName"
             name="LastName"
-            autoFocus
             value={formik.values.LastName}
             error={formik.touched.LastName && Boolean(formik.errors.LastName)}
             helperText={formik.touched.LastName && formik.errors.LastName}
@@ -81,7 +80,6 @@ export default ({ user, isLoading, ...props }) => {
             id="Avatar"
             label="Avatar"
             name="Avatar"
-            autoFocus
             value={formik.values.Avatar}
             error={formik.touched.Avatar && Boolean(formik.errors.Avatar)}
             helperText={formik.touched.Avatar && formik.errors.Avatar}
@@ -97,7 +95,6 @@ export default ({ user, isLoading, ...props }) => {
             id="Culture"
             label="Culture"
             name="Culture"
-            autoFocus
             value={formik.values.Culture}
             error={formik.touched.Culture && Boolean(formik.errors.Culture)}
             helperText={formik.touched.Culture && formik.errors.Culture}
