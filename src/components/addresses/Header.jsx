@@ -7,6 +7,7 @@ const useStyles = makeStyles({
   root: {
     boxShadow: "0 8px 6px -6px #3f51b5",
     paddingBottom: "5px",
+    marginBottom: '40px'
   },
   button: {
     marginLeft: "4px",
@@ -17,11 +18,11 @@ export default ({ title, buttons = [] }) => {
   const classes = useStyles();
   return (
     <Grid container xs={12} justify='space-between' className={classes.root}>
-      <Grid xs={4} item>
-        {title && <Typography variant='h5'>{title}</Typography>}
+      <Grid xs={6} item>
+        {title && <Typography variant='h6'>{title}</Typography>}
       </Grid>
       <Grid
-        xs={8}
+        xs={6}
         item
         container
         direction='row'

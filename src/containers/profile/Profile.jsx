@@ -9,6 +9,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import Header from "components/addresses/Header";
 
 const useStyles = (theme) => ({
   root: { marginTop: "40px", marginLeft: "200px", marginRight: "200px" },
@@ -80,10 +81,13 @@ class Homepage extends Component {
           )}
           <div className={classes.root}>
             <Grid container justifyContent="center">
+              <Header
+                title="User Profile"
+                buttons={[]}
+              />
               {!this.state.user && this.state.isLoading ? (
                 <CircularProgress size={50} />
               ) : null}
-
               {this.state.user && (
                 <UserForm
                   isLoading={this.state.isLoading}
