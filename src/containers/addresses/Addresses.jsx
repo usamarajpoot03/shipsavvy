@@ -50,6 +50,7 @@ class Addresses extends Component {
     openCustomerAddressModal: false,
     openAddressDetailsModal: false,
     addressDetails: null,
+    isAddressDetailsLoading: false,
     allAddresses: [],
     isAllAddressLoading: false,
     message: "",
@@ -142,6 +143,7 @@ class Addresses extends Component {
         this.showAlert("Address added successfully", "success");
       })
       .catch((err) => {
+        this.setState({ isAllAddressLoading: false });
         this.showAlert("Something went wrong", "error");
       });
   };
@@ -158,11 +160,19 @@ class Addresses extends Component {
   };
 
   handleAddressDetails = async (customerAddress) => {
-    const addressDetails = await getAddressDetails(customerAddress.AddressId);
-    this.setState({
-      openAddressDetailsModal: true,
-      addressDetails: addressDetails.data.Response[0],
-    });
+    this.setState({ isAddressDetailsLoading: true,openAddressDetailsModal: true });
+
+    getAddressDetails(customerAddress.AddressId)
+      .then((addressDetails) => {
+        this.setState({
+          addressDetails: addressDetails.data.Response[0],
+          isAddressDetailsLoading: false
+        });
+      })
+      .catch((err) => {
+        this.setState({ isAddressDetailsLoading: false });
+        this.showAlert("Something went wrong", "error");
+      });
   };
 
   render() {
@@ -240,7 +250,6 @@ class Addresses extends Component {
           </Box>
         ),
       },
-    
     ];
     return (
       <div>
@@ -260,6 +269,7 @@ class Addresses extends Component {
         {this.state.openAddressDetailsModal && (
           <AddressDetailsModal
             open={this.state.openAddressDetailsModal}
+            isLoading={this.state.isAddressDetailsLoading}
             addressDetails={this.state.addressDetails}
             handleClose={() =>
               this.setState({
@@ -267,7 +277,6 @@ class Addresses extends Component {
                 addressDetails: null,
               })
             }
-            // handleSubmit={this.handleSaveDoner}
           />
         )}
         <Dashboard>

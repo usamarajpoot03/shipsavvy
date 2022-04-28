@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import React, { Component } from "react";
+import React from "react";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({

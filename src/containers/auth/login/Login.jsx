@@ -3,12 +3,9 @@ import { useState } from "react";
 import {
   Link,
   Grid,
-  Box,
   Avatar,
   Button,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Typography,
   makeStyles,
   CircularProgress,

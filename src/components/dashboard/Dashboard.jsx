@@ -16,9 +16,6 @@ import SideBar from "./Sidebar";
 import { userLogout } from "../../services/authServices";
 import UserContext from "../auth/userContext/UserContext";
 
-import Chip from "@material-ui/core/Chip";
-import FaceIcon from "@material-ui/icons/Face";
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({

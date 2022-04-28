@@ -1,93 +1,161 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Grid,
   Button,
   TextField,
-  makeStyles,
   CircularProgress,
-  MenuItem,
-  Select,
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-
-const useStyles = makeStyles((theme) => ({
-  root: { maxWidth: "500px" },
-  form: {},
-}));
-
-const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-  cnic: Yup.string()
-    .trim()
-    .matches(
-      /^[0-9]{5}-[0-9]{7}-[0-9]$/,
-      "CNIC must follow the format XXXXX-XXXXXXXX-X"
-    )
-    .required(),
-  phone: Yup.string().required("Phone number is required"),
-  gender: Yup.string().required("Required"),
-  address: Yup.string(),
-  company: Yup.string(),
-});
 
 export default (props) => {
-  const { isLoading, formMode, addressDetails } = props;
-
-  const classes = useStyles();
+  const { isLoading, addressDetails } = props;
 
   return (
     <Dialog
       open={props.open}
       onClose={props.handleClose}
       aria-labelledby="form-dialog-title"
-      maxWidth="sm"
+      maxWidth="md"
+      fullWidth
     >
-      <DialogTitle>{"Details : " + addressDetails.Title}</DialogTitle>
+      <DialogTitle>{"Address Detail"}</DialogTitle>
+
       <DialogContent>
-        <Grid container xs={12} spacing={1}>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="name"
-              label="City"
-              name="name"
-              autoFocus
-              value={addressDetails.City.Name}
-            />
+        {isLoading ? (
+          <Grid container justifyContent="center">
+            <CircularProgress size={30} />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="name"
-              label="Country"
-              name="name"
-              autoFocus
-              value={addressDetails.Country.Name}
-            />
+        ) : (
+          <Grid container xs={12} spacing={1}>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="AddressLine1"
+                label="Address Line 1"
+                value={addressDetails.AddressLine1 || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="AddressLine2"
+                label="Address Line 2"
+                value={addressDetails.AddressLine2 || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="PostalCode"
+                label="Postal Code"
+                value={addressDetails.PostalCode || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="Description"
+                label="Description"
+                value={addressDetails.Description || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="countryName"
+                label="Country Name"
+                value={addressDetails.Country?.Name || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="countryCode"
+                label="Country Code"
+                value={addressDetails.Country?.Code || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="city-name"
+                label="City Name"
+                name="title"
+                value={addressDetails.City?.Name || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="city-code"
+                label="City Code"
+                name="title"
+                value={addressDetails.City?.Code || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="province-name"
+                label="Province Name"
+                name="title"
+                value={addressDetails.Province?.Name || ""}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                inputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+                id="province-code"
+                label="Province Code"
+                name="title"
+                value={addressDetails.Province?.Code || ""}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              id="name"
-              label="Province"
-              name="name"
-              autoFocus
-              value={addressDetails.Province.Name}
-            />
-          </Grid>
-        </Grid>
+        )}
       </DialogContent>
 
       <DialogActions>
