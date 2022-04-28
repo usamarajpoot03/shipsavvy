@@ -57,12 +57,20 @@ class Addresses extends Component {
   };
 
   loadResourses = async () => {
-    const userCustomerRes = await getUserCustomer();
-    this.setState({
-      customer: userCustomerRes.data.Response,
-      isCustomerLoading: false,
-    });
-    this.loadCustomerAddresses(userCustomerRes.data.Response.Id);
+    getUserCustomer()
+      .then((userCustomerRes) => {
+        this.setState({
+          customer: userCustomerRes.data.Response,
+          isCustomerLoading: false,
+        });
+        this.loadCustomerAddresses(userCustomerRes.data.Response.Id);
+      })
+      .catch((err) => {
+        this.setState({
+          isCustomerLoading: false,
+        });
+        this.showAlert("Something went wrong", "error");
+      });
   };
 
   loadAllAddressResources = async () => {
@@ -70,23 +78,37 @@ class Addresses extends Component {
       isAllAddressLoading: true,
       openCustomerAddressModal: true,
     });
-    const allAddresses = await getAllAddress();
-    this.setState({
-      allAddresses: allAddresses.data.Response,
-      isAllAddressLoading: false,
-    });
+    getAllAddress()
+      .then((allAddresses) => {
+        this.setState({
+          allAddresses: allAddresses.data.Response,
+          isAllAddressLoading: false,
+        });
+      })
+      .catch((err) => {
+        this.showAlert("Something went wrong", "error");
+        this.setState({
+          isAllAddressLoading: false,
+        });
+      });
   };
 
   loadCustomerAddresses = async (customerId) => {
     this.setState({ isCustomerAddressLoading: true });
-    const customerAddresses = await getCustomerAddresses(customerId);
-    this.setState({
-      customerAddresses: customerAddresses.data.Response.map((data) => ({
-        ...data,
-        id: data.Id,
-      })),
-      isCustomerAddressLoading: false,
-    });
+    getCustomerAddresses(customerId)
+      .then((customerAddresses) => {
+        this.setState({
+          customerAddresses: customerAddresses.data.Response.map((data) => ({
+            ...data,
+            id: data.Id,
+          })),
+          isCustomerAddressLoading: false,
+        });
+      })
+      .catch((err) => {
+        this.showAlert("Something went wrong", "error");
+        this.setState({ isCustomerAddressLoading: true });
+      });
   };
 
   componentDidMount() {
@@ -101,29 +123,6 @@ class Addresses extends Component {
         }, 3000);
       });
   }
-
-  // handleSaveDoner = (donerData) => {
-  //   if (this.state.editDoner)
-  //     updateDoner(this.state.editDoner.id, donerData)
-  //       .then((res) => {
-  //         // this.loadResourses(true, true);
-  //         this.setState({ openCustomerAddressModal: false, editDoner: null });
-  //         this.showAlert("Doner updated successfully", "success");
-  //       })
-  //       .catch((err) => {
-  //         this.showAlert("Something went wrong", "error");
-  //       });
-  //   else
-  //     createNewDoner(donerData)
-  //       .then((res) => {
-  //         // this.loadResourses(true, true);
-  //         this.setState({ openCustomerAddressModal: false });
-  //         this.showAlert("Doner added successfully", "success");
-  //       })
-  //       .catch((err) => {
-  //         this.showAlert("Something went wrong", "error");
-  //       });
-  // };
 
   handleAddCustomerAddress = async (newAddressDetails) => {
     this.setState({ isAllAddressLoading: true });
@@ -145,27 +144,6 @@ class Addresses extends Component {
       .catch((err) => {
         this.showAlert("Something went wrong", "error");
       });
-
-    // if (this.state.editDonation)
-    //   updateDonation(this.state.editDonation.id, donationData)
-    //     .then((res) => {
-    //       // this.loadResourses(false, true);
-    //       this.setState({ openAddressDetailsModal: false, editDonation: null });
-    //       this.showAlert("Donation updated successfully", "success");
-    //     })
-    //     .catch((err) => {
-    //       this.showAlert("Something went wrong", "error");
-    //     });
-    // else
-    //   addNewDonation(donationData)
-    //     .then((res) => {
-    //       // this.loadResourses(false, true);
-    //       this.setState({ openAddressDetailsModal: false });
-    //       this.showAlert("Donation added successfully", "success");
-    //     })
-    //     .catch((err) => {
-    //       this.showAlert("Something went wrong", "error");
-    //     });
   };
 
   handleDeleteCustomerAddress = async (customerAddress) => {
@@ -179,31 +157,13 @@ class Addresses extends Component {
       });
   };
 
-  // handleDeleteDonation = (donationId) => {
-  //   deleteDonation(donationId)
-  //     .then((res) => {
-  //       this.showAlert("Donation deleted successfully", "success");
-  //       // this.loadResourses(false, true);
-  //     })
-  //     .catch((err) => {
-  //       this.showAlert("Something went wrong", "error");
-  //     });
-  // };
-
   handleAddressDetails = async (customerAddress) => {
-    // console.log("xx", customerAddress);
-
-    // get address details
     const addressDetails = await getAddressDetails(customerAddress.AddressId);
     this.setState({
       openAddressDetailsModal: true,
       addressDetails: addressDetails.data.Response[0],
     });
   };
-
-  // handleEditDonation = (donation) => {
-  //   this.setState({ editDonation: donation, openAddressDetailsModal: true });
-  // };
 
   render() {
     const { classes } = this.props;
@@ -280,39 +240,8 @@ class Addresses extends Component {
           </Box>
         ),
       },
-      //   renderCell: (cellData) => (
-      //     <Box marginLeft={3}>
-      //       <IconButton
-      //         onClick={() => {
-      //           confirmAlert({
-      //             message: "Are you sure to do this.",
-      //             buttons: [
-      //               {
-      //                 label: "Yes",
-      //                 onClick: () => this.handleDeleteDonation(cellData.row.id),
-      //               },
-      //               {
-      //                 label: "No",
-      //                 onClick: () => {},
-      //               },
-      //             ],
-      //           });
-      //         }}
-      //       >
-      //         <DeleteIcon />
-      //       </IconButton>
-      //       <IconButton
-      //         onClick={() => {
-      //           this.handleEditDonation(cellData.row);
-      //         }}
-      //       >
-      //         <InfoIcon />
-      //       </IconButton>
-      //     </Box>
-      //   ),
-      // },
+    
     ];
-    console.log("xx", this.state.openCustomerAddressModal);
     return (
       <div>
         {this.state.openCustomerAddressModal && (
