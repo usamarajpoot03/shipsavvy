@@ -39,7 +39,7 @@ const useStyles = (theme) => ({
   },
 });
 
-class Donations extends Component {
+class Addresses extends Component {
   state = {
     customer: null,
     customerAddresses: [],
@@ -365,4 +365,4 @@ class Donations extends Component {
     );
   }
 }
-export default withStyles(useStyles)(Donations);
+export default withStyles(useStyles)(Addresses);

@@ -12,10 +12,10 @@ import { Alert } from "@material-ui/lab";
 import Header from "components/addresses/Header";
 
 const useStyles = (theme) => ({
-  root: { marginTop: "40px", marginLeft: "200px", marginRight: "200px" },
+  root: { marginTop: "20px", marginLeft: "200px", marginRight: "200px" },
 });
 
-class Homepage extends Component {
+class Profile extends Component {
   state = {
     user: null,
     isLoading: false,
@@ -102,4 +102,4 @@ class Homepage extends Component {
     );
   }
 }
-export default withStyles(useStyles)(Homepage);
+export default withStyles(useStyles)(Profile);
